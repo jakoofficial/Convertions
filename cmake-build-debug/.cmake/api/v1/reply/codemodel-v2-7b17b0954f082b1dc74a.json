@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/home/jay/IoT/Projects/c-first/cmake-build-debug",
-		"source" : "/home/jay/IoT/Projects/c-first"
+		"build" : "/home/jay/IoT/Projects/Convertions/cmake-build-debug",
+		"source" : "/home/jay/IoT/Projects/Convertions"
 	},
 	"version" : 
 	{

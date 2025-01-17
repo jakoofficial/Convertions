@@ -74,14 +74,16 @@ void convertDecToBin(char value[]) {
 }
 
 int main(void) {
+    printf("What do you want to convert?\n");
     scanf("%s", inputNumber);
     for (int i = 0; i < strlen(inputNumber); i++) {
         if (!isdigit(inputNumber[i])) {
             printf("%s, is not a valid number\n", inputNumber);
-            return;
+            return 0;
         }
     }
 
+    ClearScreen();
     convertDecToBin(inputNumber);
     convertBinToDec(inputNumber);
     // printf("Remainder %s\n", convertDecToBin("13"));
