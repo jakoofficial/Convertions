@@ -28,32 +28,6 @@ int power(int value, int exponent) {
     return value;
 }
 
-// char split(char input[]) {
-//     char result[1] = {input[1]};
-//     int i = 0;
-//     while (i < len) {
-//         if (i == 1) {
-//             result[i] = input[i+1];
-//             return result;
-//         }
-//         i++;
-//     }
-//     return result;
-// }
-
-void check_conversion(char input[]) {
-    char decider = input[1];
-    if (decider == 'd') {
-        printf("%c\n", decider);
-    }
-    else if (decider == 'x') {
-        printf("Hex: %c\n", decider);
-    }
-    else if (decider == 'b') {
-
-    }
-}
-
 char val[] = "1000";
 
 void reverse(char res[]) {
@@ -74,20 +48,9 @@ void reverse(char res[]) {
     }
 }
 
-void convertBinToDec(char value[]) {
-    int len = strlen(value);
-    int decimal = 0;
-    for (int i = 0; i < len; i++) {
-        if (value[i] == '1') {
-            decimal += 1 << (len - i - 1);
-        }
-    }
-    printf("Binary (%s) -> Decimal: %d\n", value, decimal);
-}
-
-void convertDecToHex(char value[]) {
-    char res[30];
-    int quotient = atoi(value);
+char *convertDecToHex(char value[]) {
+    char *res = malloc(strlen(value) * sizeof(char));
+    int quotient = atoi(res);
     int remainder = 0;
 
     while (quotient != 0) {
@@ -106,6 +69,7 @@ void convertDecToHex(char value[]) {
                     sprintf(remLetter, "%c", c);
 
                     strncat(res, remLetter, 1);
+                    // return res;
                     break;
                 }
                 i++;
@@ -116,8 +80,10 @@ void convertDecToHex(char value[]) {
             strncat(res, rem, 1);
         }
     }
+    // printf("Dec (%s) -> Hex: %s\n", value, res);
+    const char t = res[strlen(res) - 1];
 
-    printf("Hexadecimal: %s\n", res);
+    return t;
 }
 
 void convertDecToBin(char value[]) {
@@ -138,8 +104,78 @@ void convertDecToBin(char value[]) {
     printf("Dec (%s) -> Bin: %s\n", value, res);
 }
 
+char convertBinToDec(char value[]) {
+    int len = strlen(value);
+    int decimal = 0;
+    for (int i = 0; i < len; i++) {
+        if (!isdigit(value[i])) {
+            return -1;
+        }
+
+        if (value[i] == '1') {
+            decimal += 1 << (len - i - 1);
+        }
+    }
+    char res[30];
+    sprintf(res, "%d", decimal);
+
+    // return sprintf(res, "%d", decimal);
+    return res;
+}
+
+void convertBinToHex(char value[]) {
+    int len = strlen(value);
+    int split_idx = 0;
+    char *result = malloc(len * 2 + 1);
+    if (len < 4) {
+        return;
+    } else {
+        char tmp[4];
+        for (int i = 0; i < len; i++) {
+            tmp[split_idx] = value[i];
+            split_idx++;
+
+            if (split_idx >= 4) {
+                split_idx = 0;
+                char decimal[100000];
+                // printf("%d", -convertBinToDec(tmp));
+                // printf("Decimal (%s)\n", convertDecToHex(convertBinToDec(tmp)));
+                // sprintf(decimal, "%d", convertDecToHex(convertBinToDec(tmp)));
+                // strncat(result, decimal, strlen(decimal) + 1);
+                sprintf(result, "%d", convertBinToDec(tmp));
+            }
+        }
+    }
+
+    printf("hahaha %s\n", result);
+}
+
+
+char *split(char input[], int index) {
+    char *convert = malloc(strlen(input) * sizeof(char));
+    for (int i = 0; i < strlen(input); i++) {
+        if (i > index) {
+            convert[i - 2] = input[i];
+        }
+    }
+    return convert;
+}
+
+void check_conversion(char input[]) {
+    char decider = input[1];
+    if (decider == 'd') {
+        convertDecToBin(split(input, 1));
+        convertDecToHex(split(input, 1));
+    } else if (decider == 'x') {
+        printf("Hex: %c\n", decider);
+    } else if (decider == 'b') {
+        printf("%d\n", convertBinToDec(split(input, 1)));
+        convertBinToHex(split(input, 1));
+    }
+}
+
 int main(void) {
-    check_conversion("0x550300");
+    // check_conversion("0b111011");
     // printf("What do you want to convert?\n");
     // // scanf("%s", inputNumber);
     // // for (int i = 0; i < strlen(inputNumber); i++) {
@@ -148,7 +184,7 @@ int main(void) {
     // //         return 0;
     // //     }
     // // }
-
+    printf("%d", convertBinToDec("111011"));
     // convertDecToBin("359");
     // convertDecToHex("35631");
     return 0;
