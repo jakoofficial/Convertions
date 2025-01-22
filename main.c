@@ -28,6 +28,32 @@ int power(int value, int exponent) {
     return value;
 }
 
+// char split(char input[]) {
+//     char result[1] = {input[1]};
+//     int i = 0;
+//     while (i < len) {
+//         if (i == 1) {
+//             result[i] = input[i+1];
+//             return result;
+//         }
+//         i++;
+//     }
+//     return result;
+// }
+
+void check_conversion(char input[]) {
+    char decider = input[1];
+    if (decider == 'd') {
+        printf("%c\n", decider);
+    }
+    else if (decider == 'x') {
+        printf("Hex: %c\n", decider);
+    }
+    else if (decider == 'b') {
+
+    }
+}
+
 char val[] = "1000";
 
 void reverse(char res[]) {
@@ -76,7 +102,6 @@ void convertDecToHex(char value[]) {
             // Converts the rest of the remainder into the corresponding Hex Character
             for (c = 'A'; c <= 'F'; c++) {
                 if (i == rest) {
-                    // printf("%c", c);
                     char remLetter[10] = "";
                     sprintf(remLetter, "%c", c);
 
@@ -114,6 +139,7 @@ void convertDecToBin(char value[]) {
 }
 
 int main(void) {
+    check_conversion("0x550300");
     // printf("What do you want to convert?\n");
     // // scanf("%s", inputNumber);
     // // for (int i = 0; i < strlen(inputNumber); i++) {
@@ -123,7 +149,7 @@ int main(void) {
     // //     }
     // // }
 
-    convertDecToBin("359");
+    // convertDecToBin("359");
     // convertDecToHex("35631");
     return 0;
 }
